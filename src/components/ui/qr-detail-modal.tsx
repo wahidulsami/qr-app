@@ -11,6 +11,7 @@ import {
 
 import { QRItem } from '@/types/qr';
 import { useApp } from '@/context/app-context';
+import { useToast } from '@/context/toast-context';
 import { parseQRPayload } from '@/utils/qr-payload';
 import { copyToClipboard, openURLSafe } from '@/utils/qr-actions';
 import { TypeBadge } from './type-badge';
@@ -39,6 +40,7 @@ export function QRDetailModal({
   onDelete,
 }: QRDetailModalProps) {
   const { theme, triggerHaptic } = useApp();
+  const { toast } = useToast();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -55,7 +57,10 @@ export function QRDetailModal({
     if (ok) {
       triggerHaptic('success');
       setCopiedKey(key);
+      toast.copied(key.includes('url') ? 'Link copied' : 'QR content copied');
       setTimeout(() => setCopiedKey(null), 2000);
+    } else {
+      toast.error('Failed to copy to clipboard');
     }
   };
 

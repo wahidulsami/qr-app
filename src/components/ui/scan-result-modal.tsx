@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { useApp } from '@/context/app-context';
+import { useToast } from '@/context/toast-context';
 import { parseQRPayload } from '@/utils/qr-payload';
 import { copyToClipboard, openURLSafe, shareContent } from '@/utils/qr-actions';
 import { TypeBadge } from './type-badge';
@@ -38,6 +39,7 @@ export function ScanResultModal({
   onClose,
 }: ScanResultModalProps) {
   const { theme, triggerHaptic } = useApp();
+  const { toast } = useToast();
   const [copied, setCopied] = useState(false);
 
   if (!rawContent) return null;
@@ -49,7 +51,10 @@ export function ScanResultModal({
     if (ok) {
       triggerHaptic('success');
       setCopied(true);
+      toast.copied(parsed.url ? 'Link copied' : 'Scanned content copied');
       setTimeout(() => setCopied(false), 2000);
+    } else {
+      toast.error('Failed to copy to clipboard');
     }
   };
 

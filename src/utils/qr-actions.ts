@@ -1,4 +1,4 @@
-import { Alert, Linking, Platform, Share } from 'react-native';
+import { Linking, Platform, Share } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system/legacy';
@@ -19,7 +19,10 @@ export async function copyToClipboard(text: string): Promise<boolean> {
 /**
  * Opens a URL in the default browser safely
  */
-export async function openURLSafe(rawUrl: string): Promise<boolean> {
+export async function openURLSafe(
+  rawUrl: string,
+  onError?: (msg: string) => void
+): Promise<boolean> {
   try {
     const formatted = /^https?:\/\//i.test(rawUrl.trim())
       ? rawUrl.trim()
@@ -29,12 +32,12 @@ export async function openURLSafe(rawUrl: string): Promise<boolean> {
       await Linking.openURL(formatted);
       return true;
     } else {
-      Alert.alert('Cannot Open URL', `No app available to open: ${formatted}`);
+      onError?.(`No app available to open: ${formatted}`);
       return false;
     }
   } catch (err) {
     console.warn('[QR Actions] Open URL failed:', err);
-    Alert.alert('Open URL Error', 'Could not open the specified web address.');
+    onError?.('Could not open the specified web address.');
     return false;
   }
 }

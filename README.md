@@ -1,56 +1,96 @@
-# Welcome to your Expo app 👋
+# QR App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A cross-platform QR toolkit for scanning codes, generating new QR codes, and keeping useful scans close at hand. The app is designed for quick one-handed actions with a clean interface, tactile feedback, and layered buttons that give the controls a subtle 3D shape.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Scan QR codes with the device camera.
+- Generate QR codes from text, links, contact details, and other payloads.
+- View scan results and QR details in focused modal views.
+- Save and revisit QR activity in local history.
+- Copy, share, and use QR payload actions from the result screen.
+- Switch between light and dark appearance settings.
+- Use haptic feedback for important button interactions.
+- Run on Android, iOS, and the web through Expo.
 
-   ```bash
-   npm install
-   ```
+## Tech stack
 
-2. Start the app
+- **Framework:** Expo SDK 57 and React Native 0.86
+- **Language:** TypeScript
+- **Navigation:** Expo Router with file-based routes
+- **QR generation:** `react-native-qrcode-svg`
+- **Camera:** `expo-camera`
+- **Storage:** `@react-native-async-storage/async-storage`
+- **Icons:** `lucide-react-native` and Expo Symbols
+- **Motion and interaction:** React Native Reanimated, Gesture Handler, and Expo Haptics
+- **Web support:** React Native Web and React DOM
 
-   ```bash
-   npx expo start
-   ```
+## Requirements
 
-In the output, you'll find options to open the app in a
+- Node.js LTS
+- npm
+- Android Studio and an emulator, or a physical Android device
+- Xcode and an iOS simulator, or a physical iOS device (macOS only)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Expo Go can be used for supported features during development. Native features that are not included in Expo Go require a development build.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Installation
 
-## Get a fresh project
-
-When you're ready, run:
+Clone the repository and enter the project directory:
 
 ```bash
-npm run reset-project
+git clone https://github.com/wahidulsami/qr-app.git
+cd qr-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Install dependencies:
 
-### Other setup steps
+```bash
+npm install
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Start the Expo development server:
 
-## Learn more
+```bash
+npm start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Then use the displayed Expo options to open the app in Expo Go, an Android emulator, an iOS simulator, or a web browser.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Platform commands
 
-## Join the community
+```bash
+npm run android   # Start on Android
+npm run ios       # Start on iOS (macOS only)
+npm run web       # Start in a web browser
+```
 
-Join our community of developers creating universal apps.
+## Development checks
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Run the linter and TypeScript checker before committing changes:
+
+```bash
+npm run lint
+npx tsc --noEmit
+```
+
+## Project structure
+
+```text
+src/
+  app/             Expo Router screens
+  components/      Reusable UI and navigation components
+  constants/       Theme values
+  context/         App state and toast state
+  hooks/           Shared React hooks
+  types/           TypeScript models
+  utils/           QR actions, payload parsing, and storage
+```
+
+## UI direction
+
+The interface uses a compact, mobile-first visual system. Primary actions use layered surfaces, rounded corners, icon support, and a small pressed-state scale change to create a tactile 3D button effect without making controls difficult to read or tap. The same design language is shared across scan, generate, history, explore, and settings screens.
+
+## License
+
+See [LICENSE](LICENSE) for project licensing information.
